@@ -1,0 +1,616 @@
+diff --git a/chrome/app/nibs/Toolbar.xib b/chrome/app/nibs/Toolbar.xib
+index 045646e..e0f1c5b 100644
+--- a/chrome/app/nibs/Toolbar.xib
++++ b/chrome/app/nibs/Toolbar.xib
+@@ -1,25 +1,22 @@
+-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+-<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="5056" systemVersion="13F1077" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
++<?xml version="1.0" encoding="UTF-8"?>
++<document type="com.apple.InterfaceBuilder3.Cocoa.XIB" version="3.0" toolsVersion="11762" systemVersion="16E144f" targetRuntime="MacOSX.Cocoa" propertyAccessControl="none">
+     <dependencies>
+         <deployment version="1090" identifier="macosx"/>
+-        <development version="5100" identifier="xcode"/>
+-        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="5056"/>
++        <plugIn identifier="com.apple.InterfaceBuilder.CocoaPlugin" version="11762"/>
++        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+     </dependencies>
+     <objects>
+         <customObject id="-2" userLabel="File's Owner" customClass="ToolbarController">
+             <connections>
+-                <outlet property="backButton_" destination="2" id="17"/>
++                <outlet property="appMenuButton_" destination="38" id="41"/>
+                 <outlet property="browserActionsContainerView_" destination="144" id="154"/>
+-                <outlet property="forwardButton_" destination="7" id="18"/>
+                 <outlet property="homeButton_" destination="8" id="35"/>
+                 <outlet property="locationBar_" destination="4" id="31"/>
+-                <outlet property="reloadButton_" destination="3" id="19"/>
+                 <outlet property="view" destination="1" id="22"/>
+-                <outlet property="appMenuButton_" destination="38" id="41"/>
+             </connections>
+         </customObject>
+         <customObject id="-1" userLabel="First Responder" customClass="FirstResponder"/>
+-        <customObject id="-3" userLabel="Application"/>
++        <customObject id="-3" userLabel="Application" customClass="NSObject"/>
+         <customView id="1" customClass="ToolbarView">
+             <rect key="frame" x="0.0" y="0.0" width="604" height="35"/>
+             <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+@@ -32,52 +29,8 @@
+                         <font key="font" metaFont="system"/>
+                     </buttonCell>
+                 </button>
+-                <button toolTip="^IDS_TOOLTIP_BACK" tag="33000" id="2" customClass="MenuButton">
+-                    <rect key="frame" x="3" y="4" width="29" height="29"/>
+-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" state="on" borderStyle="border" inset="2" id="15" customClass="ClickHoldButtonCell">
+-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+-                        <font key="font" metaFont="system"/>
+-                    </buttonCell>
+-                    <connections>
+-                        <action selector="commandDispatchUsingKeyModifiers:" target="-1" id="138"/>
+-                    </connections>
+-                </button>
+-                <button toolTip="^IDS_TOOLTIP_FORWARD" tag="33001" id="7" customClass="MenuButton">
+-                    <rect key="frame" x="31" y="4" width="29" height="29"/>
+-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" state="on" borderStyle="border" inset="2" id="10" customClass="ClickHoldButtonCell">
+-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+-                        <font key="font" metaFont="system"/>
+-                    </buttonCell>
+-                    <connections>
+-                        <action selector="commandDispatchUsingKeyModifiers:" target="-1" id="139"/>
+-                    </connections>
+-                </button>
+-                <button toolTip="^IDS_TOOLTIP_RELOAD" tag="33002" id="3" customClass="ReloadButton">
+-                    <rect key="frame" x="59" y="4" width="29" height="29"/>
+-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="14" customClass="ClickHoldButtonCell">
+-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+-                        <font key="font" metaFont="system"/>
+-                    </buttonCell>
+-                    <connections>
+-                        <action selector="commandDispatchUsingKeyModifiers:" target="-1" id="26"/>
+-                    </connections>
+-                </button>
+-                <button toolTip="^IDS_TOOLTIP_HOME" tag="33003" id="8" customClass="ToolbarButton">
+-                    <rect key="frame" x="87" y="4" width="29" height="29"/>
+-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
+-                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="9" customClass="ClickHoldButtonCell">
+-                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
+-                        <font key="font" metaFont="system"/>
+-                    </buttonCell>
+-                    <connections>
+-                        <action selector="commandDispatchUsingKeyModifiers:" target="-1" id="155"/>
+-                    </connections>
+-                </button>
+-                <textField focusRingType="exterior" verticalHuggingPriority="750" tag="33004" id="4" customClass="AutocompleteTextField">
+-                    <rect key="frame" x="119" y="4" width="454" height="29"/>
++                <textField focusRingType="exterior" verticalHuggingPriority="750" misplaced="YES" tag="33004" id="4" customClass="AutocompleteTextField">
++                    <rect key="frame" x="30" y="4" width="543" height="29"/>
+                     <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMinY="YES"/>
+                     <textFieldCell key="cell" scrollable="YES" lineBreakMode="clipping" selectable="YES" editable="YES" state="on" borderStyle="bezel" focusRingType="exterior" alignment="left" drawsBackground="YES" id="13" customClass="AutocompleteTextFieldCell">
+                         <font key="font" metaFont="system"/>
+@@ -92,7 +45,19 @@
+                     <rect key="frame" x="572" y="4" width="0.0" height="29"/>
+                     <autoresizingMask key="autoresizingMask" flexibleMinX="YES" flexibleMinY="YES"/>
+                 </customView>
++                <button toolTip="^IDS_TOOLTIP_HOME" misplaced="YES" tag="33003" id="8" customClass="ToolbarButton">
++                    <rect key="frame" x="2" y="4" width="29" height="29"/>
++                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMinY="YES"/>
++                    <buttonCell key="cell" type="square" bezelStyle="shadowlessSquare" imagePosition="only" alignment="center" borderStyle="border" inset="2" id="9" customClass="ClickHoldButtonCell">
++                        <behavior key="behavior" pushIn="YES" lightByBackground="YES" lightByGray="YES"/>
++                        <font key="font" metaFont="system"/>
++                    </buttonCell>
++                    <connections>
++                        <action selector="commandDispatchUsingKeyModifiers:" target="-1" id="155"/>
++                    </connections>
++                </button>
+             </subviews>
++            <point key="canvasLocation" x="140" y="166.5"/>
+         </customView>
+         <customObject id="122" customClass="ChromeUILocalizer">
+             <connections>
+diff --git a/chrome/browser/ui/cocoa/toolbar/toolbar_controller.h b/chrome/browser/ui/cocoa/toolbar/toolbar_controller.h
+index 62b049a..bd311ee 100644
+--- a/chrome/browser/ui/cocoa/toolbar/toolbar_controller.h
++++ b/chrome/browser/ui/cocoa/toolbar/toolbar_controller.h
+@@ -18,7 +18,7 @@
+ 
+ @class AutocompleteTextField;
+ @class AutocompleteTextFieldEditor;
+-@class BackForwardMenuController;
++// @class BackForwardMenuController;
+ class Browser;
+ @class BrowserActionsContainerView;
+ @class BrowserActionsController;
+@@ -26,7 +26,7 @@ class CommandUpdater;
+ class LocationBarViewMac;
+ @class MenuButton;
+ class Profile;
+-@class ReloadButton;
++// @class ReloadButton;
+ @class ToolbarButton;
+ @class AppMenuController;
+ 
+@@ -50,9 +50,9 @@ class NotificationBridge;
+   // The ordering is important for unit tests. If new items are added or the
+   // ordering is changed, make sure to update |-toolbarViews| and the
+   // corresponding enum in the unit tests.
+-  IBOutlet MenuButton* backButton_;
+-  IBOutlet MenuButton* forwardButton_;
+-  IBOutlet ReloadButton* reloadButton_;
++  // IBOutlet MenuButton* backButton_;
++  // IBOutlet MenuButton* forwardButton_;
++  // IBOutlet ReloadButton* reloadButton_;
+   IBOutlet ToolbarButton* homeButton_;
+   IBOutlet MenuButton* appMenuButton_;
+   IBOutlet AutocompleteTextField* locationBar_;
+@@ -67,8 +67,8 @@ class NotificationBridge;
+   std::unique_ptr<LocationBarViewMac> locationBarView_;
+   base::scoped_nsobject<AutocompleteTextFieldEditor>
+       autocompleteTextFieldEditor_;
+-  base::scoped_nsobject<BackForwardMenuController> backMenuController_;
+-  base::scoped_nsobject<BackForwardMenuController> forwardMenuController_;
++  // base::scoped_nsobject<BackForwardMenuController> backMenuController_;
++  // base::scoped_nsobject<BackForwardMenuController> forwardMenuController_;
+   base::scoped_nsobject<BrowserActionsController> browserActionsController_;
+ 
+   // Lazily-instantiated menu controller.
+diff --git a/chrome/browser/ui/cocoa/toolbar/toolbar_controller.mm b/chrome/browser/ui/cocoa/toolbar/toolbar_controller.mm
+index 4b3458f..4239ca8 100644
+--- a/chrome/browser/ui/cocoa/toolbar/toolbar_controller.mm
++++ b/chrome/browser/ui/cocoa/toolbar/toolbar_controller.mm
+@@ -227,9 +227,9 @@ - (id)initWithCommands:(CommandUpdater*)commands
+     commandObserver_.reset(
+         new ToolbarControllerInternal::CommandObserverBridge(self));
+ 
+-    commands->AddCommandObserver(IDC_BACK, commandObserver_.get());
+-    commands->AddCommandObserver(IDC_FORWARD, commandObserver_.get());
+-    commands->AddCommandObserver(IDC_RELOAD, commandObserver_.get());
++    // commands->AddCommandObserver(IDC_BACK, commandObserver_.get());
++    // commands->AddCommandObserver(IDC_FORWARD, commandObserver_.get());
++    // commands->AddCommandObserver(IDC_RELOAD, commandObserver_.get());
+     commands->AddCommandObserver(IDC_HOME, commandObserver_.get());
+     commands->AddCommandObserver(IDC_BOOKMARK_PAGE, commandObserver_.get());
+     // NOTE: Don't remove the command observers. ToolbarController is
+@@ -282,7 +282,7 @@ - (void)viewDidLoad {
+   [toolbarView setFrame:frame];
+ 
+   NSArray* leadingButtons =
+-      @[ backButton_, forwardButton_, reloadButton_, homeButton_ ];
++      @[ /*backButton_, forwardButton_, reloadButton_,*/ homeButton_ ];
+   const CGFloat xStart = kElementPadding + kButtonInset;
+   const CGFloat xOffset = toolbarButtonSize.width + kButtonInset * 2;
+   const CGFloat yPosition =
+@@ -366,16 +366,16 @@ - (void)viewDidLoad {
+ 
+   [appMenuButton_ setOpenMenuOnClick:YES];
+ 
+-  [backButton_ setOpenMenuOnRightClick:YES];
+-  [forwardButton_ setOpenMenuOnRightClick:YES];
++  // [backButton_ setOpenMenuOnRightClick:YES];
++  // [forwardButton_ setOpenMenuOnRightClick:YES];
+ 
+-  [backButton_ setHandleMiddleClick:YES];
+-  [forwardButton_ setHandleMiddleClick:YES];
+-  [reloadButton_ setHandleMiddleClick:YES];
++  // [backButton_ setHandleMiddleClick:YES];
++  // [forwardButton_ setHandleMiddleClick:YES];
++  // [reloadButton_ setHandleMiddleClick:YES];
+   [homeButton_ setHandleMiddleClick:YES];
+ 
+-  [self initCommandStatus:commands_];
+-  [reloadButton_ setCommandUpdater:commands_];
++  // [self initCommandStatus:commands_];
++  // [reloadButton_ setCommandUpdater:commands_];
+ 
+   locationBarView_.reset(new LocationBarViewMac(locationBar_, commands_,
+                                                 profile_, browser_));
+@@ -408,6 +408,7 @@ - (void)viewDidLoad {
+   [self pinLocationBarBeforeBrowserActionsContainerAndAnimate:NO];
+ 
+   // Create the controllers for the back/forward menus.
++  /*
+   backMenuController_.reset([[BackForwardMenuController alloc]
+           initWithBrowser:browser_
+                 modelType:BACK_FORWARD_MENU_TYPE_BACK
+@@ -416,6 +417,7 @@ - (void)viewDidLoad {
+           initWithBrowser:browser_
+                 modelType:BACK_FORWARD_MENU_TYPE_FORWARD
+                    button:forwardButton_]);
++  */
+ 
+   trackingArea_.reset(
+       [[CrTrackingArea alloc] initWithRect:NSZeroRect // Ignored
+@@ -440,8 +442,8 @@ - (void)viewDidLoad {
+   // Set ViewIDs for toolbar elements which don't have their dedicated class.
+   // ViewIDs of |toolbarView|, |reloadButton_|, |locationBar_| and
+   // |browserActionsContainerView_| are handled by themselves.
+-  view_id_util::SetID(backButton_, VIEW_ID_BACK_BUTTON);
+-  view_id_util::SetID(forwardButton_, VIEW_ID_FORWARD_BUTTON);
++  // view_id_util::SetID(backButton_, VIEW_ID_BACK_BUTTON);
++  // view_id_util::SetID(forwardButton_, VIEW_ID_FORWARD_BUTTON);
+   view_id_util::SetID(homeButton_, VIEW_ID_HOME_BUTTON);
+   view_id_util::SetID(appMenuButton_, VIEW_ID_APP_MENU);
+ 
+@@ -460,8 +462,8 @@ - (void)browserWillBeDestroyed {
+   [[self toolbarView] stopAnimation];
+ 
+   // Pass this call onto other reference counted objects.
+-  [backMenuController_ browserWillBeDestroyed];
+-  [forwardMenuController_ browserWillBeDestroyed];
++  // [backMenuController_ browserWillBeDestroyed];
++  // [forwardMenuController_ browserWillBeDestroyed];
+   [browserActionsController_ browserWillBeDestroyed];
+   [appMenuController_ browserWillBeDestroyed];
+ 
+@@ -472,8 +474,8 @@ - (void)cleanUp {
+   // Unset ViewIDs of toolbar elements.
+   // ViewIDs of |toolbarView|, |reloadButton_|, |locationBar_| and
+   // |browserActionsContainerView_| are handled by themselves.
+-  view_id_util::UnsetID(backButton_);
+-  view_id_util::UnsetID(forwardButton_);
++  // view_id_util::UnsetID(backButton_);
++  // view_id_util::UnsetID(forwardButton_);
+   view_id_util::UnsetID(homeButton_);
+   view_id_util::UnsetID(appMenuButton_);
+ 
+@@ -497,7 +499,8 @@ - (void)cleanUp {
+ 
+ - (void)addAccessibilityDescriptions {
+   // Set accessibility descriptions. http://openradar.appspot.com/7496255
+-  NSString* description = l10n_util::GetNSStringWithFixup(IDS_ACCNAME_BACK);
++
++  NSString* /* description = l10n_util::GetNSStringWithFixup(IDS_ACCNAME_BACK);
+   [[backButton_ cell]
+       accessibilitySetOverrideValue:description
+                        forAttribute:NSAccessibilityDescriptionAttribute];
+@@ -519,7 +522,7 @@ - (void)addAccessibilityDescriptions {
+   [[reloadButton_ cell]
+       accessibilitySetOverrideValue:description
+                        forAttribute:NSAccessibilityDescriptionAttribute];
+-  description = l10n_util::GetNSStringWithFixup(IDS_ACCNAME_HOME);
++  */description = l10n_util::GetNSStringWithFixup(IDS_ACCNAME_HOME);
+   [[homeButton_ cell]
+       accessibilitySetOverrideValue:description
+                        forAttribute:NSAccessibilityDescriptionAttribute];
+@@ -587,12 +590,14 @@ - (void)focusLocationBar:(BOOL)selectAll {
+ - (void)enabledStateChangedForCommand:(int)command enabled:(bool)enabled {
+   NSButton* button = nil;
+   switch (command) {
++    /*
+     case IDC_BACK:
+       button = backButton_;
+       break;
+     case IDC_FORWARD:
+       button = forwardButton_;
+       break;
++    */
+     case IDC_HOME:
+       button = homeButton_;
+       break;
+@@ -603,10 +608,10 @@ - (void)enabledStateChangedForCommand:(int)command enabled:(bool)enabled {
+ // Init the enabled state of the buttons on the toolbar to match the state in
+ // the controller.
+ - (void)initCommandStatus:(CommandUpdater*)commands {
+-  [backButton_ setEnabled:commands->IsCommandEnabled(IDC_BACK) ? YES : NO];
+-  [forwardButton_
+-      setEnabled:commands->IsCommandEnabled(IDC_FORWARD) ? YES : NO];
+-  [reloadButton_ setEnabled:YES];
++  // [backButton_ setEnabled:commands->IsCommandEnabled(IDC_BACK) ? YES : NO];
++  // [forwardButton_
++  //     setEnabled:commands->IsCommandEnabled(IDC_FORWARD) ? YES : NO];
++  // [reloadButton_ setEnabled:YES];
+   [homeButton_ setEnabled:commands->IsCommandEnabled(IDC_HOME) ? YES : NO];
+ }
+ 
+@@ -619,8 +624,8 @@ - (void)updateToolbarWithContents:(WebContents*)tab {
+     [browserActionsController_ update];
+   }
+ 
+-  BOOL needReloadMenu = chrome::IsDebuggerAttachedToCurrentTab(browser_);
+-  [reloadButton_ setMenuEnabled:needReloadMenu];
++  // BOOL needReloadMenu = chrome::IsDebuggerAttachedToCurrentTab(browser_);
++  // [reloadButton_ setMenuEnabled:needReloadMenu];
+ }
+ 
+ - (void)resetTabState:(WebContents*)tab {
+@@ -641,7 +646,7 @@ - (void)zoomChangedForActiveTab:(BOOL)canShowBubble {
+ }
+ 
+ - (void)setIsLoading:(BOOL)isLoading force:(BOOL)force {
+-  [reloadButton_ setIsLoading:isLoading force:force];
++  // [reloadButton_ setIsLoading:isLoading force:force];
+ }
+ 
+ - (void)setHasToolbar:(BOOL)toolbar hasLocationBar:(BOOL)locBar {
+@@ -691,7 +696,7 @@ - (id)customFieldEditorForObject:(id)obj {
+ // Returns an array of views, ordered leading to trailing.
+ - (NSArray*)toolbarViews {
+   return @[
+-    backButton_, forwardButton_, reloadButton_, homeButton_, locationBar_,
++    /*backButton_, forwardButton_, reloadButton_,*/ homeButton_, locationBar_,
+     browserActionsContainerView_, appMenuButton_
+   ];
+ }
+@@ -916,7 +921,7 @@ - (void)showLocationBarOnly {
+   // -showLocationBarOnly is only ever called once, shortly after
+   // initialization, so the regular buttons should all be visible.
+   DCHECK(!hasToolbar_ && hasLocationBar_);
+-  DCHECK(![backButton_ isHidden]);
++  // DCHECK(![backButton_ isHidden]);
+ 
+   // Ensure the location bar fills the toolbar.
+   NSRect toolbarFrame = [[self view] frame];
+@@ -926,9 +931,9 @@ - (void)showLocationBarOnly {
+   [locationBar_ setFrame:NSMakeRect(0, 0, NSWidth([[self view] frame]),
+                                     [ToolbarController locationBarHeight])];
+ 
+-  [backButton_ setHidden:YES];
+-  [forwardButton_ setHidden:YES];
+-  [reloadButton_ setHidden:YES];
++  // [backButton_ setHidden:YES];
++  // [forwardButton_ setHidden:YES];
++  // [reloadButton_ setHidden:YES];
+   [appMenuButton_ setHidden:YES];
+   [homeButton_ setHidden:YES];
+   [browserActionsContainerView_ setHidden:YES];
+diff --git a/chrome/browser/ui/views/toolbar/toolbar_view.cc b/chrome/browser/ui/views/toolbar/toolbar_view.cc
+index 27f632d..192f95a 100644
+--- a/chrome/browser/ui/views/toolbar/toolbar_view.cc
++++ b/chrome/browser/ui/views/toolbar/toolbar_view.cc
+@@ -120,9 +120,9 @@ const char ToolbarView::kViewClassName[] = "ToolbarView";
+ // ToolbarView, public:
+ 
+ ToolbarView::ToolbarView(Browser* browser)
+-    : back_(nullptr),
++    : /*back_(nullptr),
+       forward_(nullptr),
+-      reload_(nullptr),
++      reload_(nullptr),*/
+       home_(nullptr),
+       location_bar_(nullptr),
+       browser_actions_(nullptr),
+@@ -134,9 +134,9 @@ ToolbarView::ToolbarView(Browser* browser)
+                         : DISPLAYMODE_LOCATION) {
+   set_id(VIEW_ID_TOOLBAR);
+ 
+-  chrome::AddCommandObserver(browser_, IDC_BACK, this);
++  /*chrome::AddCommandObserver(browser_, IDC_BACK, this);
+   chrome::AddCommandObserver(browser_, IDC_FORWARD, this);
+-  chrome::AddCommandObserver(browser_, IDC_RELOAD, this);
++  chrome::AddCommandObserver(browser_, IDC_RELOAD, this);*/
+   chrome::AddCommandObserver(browser_, IDC_HOME, this);
+   chrome::AddCommandObserver(browser_, IDC_LOAD_NEW_TAB_PAGE, this);
+ 
+@@ -170,6 +170,7 @@ void ToolbarView::Init() {
+     return;
+   }
+ 
++  /*
+   back_ = new BackButton(
+       browser_->profile(), this,
+       new BackForwardMenuModel(browser_, BackForwardMenuModel::BACKWARD_MENU));
+@@ -181,7 +182,9 @@ void ToolbarView::Init() {
+   back_->SetAccessibleName(l10n_util::GetStringUTF16(IDS_ACCNAME_BACK));
+   back_->set_id(VIEW_ID_BACK_BUTTON);
+   back_->Init();
++  */
+ 
++  /*
+   forward_ = new ToolbarButton(
+       browser_->profile(), this,
+       new BackForwardMenuModel(browser_, BackForwardMenuModel::FORWARD_MENU));
+@@ -193,7 +196,9 @@ void ToolbarView::Init() {
+   forward_->SetAccessibleName(l10n_util::GetStringUTF16(IDS_ACCNAME_FORWARD));
+   forward_->set_id(VIEW_ID_FORWARD_BUTTON);
+   forward_->Init();
++  */
+ 
++  /*
+   reload_ = new ReloadButton(browser_->profile(),
+                              browser_->command_controller()->command_updater());
+   reload_->set_triggerable_event_flags(
+@@ -202,6 +207,7 @@ void ToolbarView::Init() {
+   reload_->SetAccessibleName(l10n_util::GetStringUTF16(IDS_ACCNAME_RELOAD));
+   reload_->set_id(VIEW_ID_RELOAD_BUTTON);
+   reload_->Init();
++  */
+ 
+   home_ = new HomeButton(this, browser_);
+   home_->set_triggerable_event_flags(
+@@ -225,9 +231,9 @@ void ToolbarView::Init() {
+   app_menu_button_->set_id(VIEW_ID_APP_MENU);
+ 
+   // Always add children in order from left to right, for accessibility.
+-  AddChildView(back_);
++  /*AddChildView(back_);
+   AddChildView(forward_);
+-  AddChildView(reload_);
++  AddChildView(reload_);*/
+   AddChildView(home_);
+   AddChildView(location_bar_);
+   AddChildView(browser_actions_);
+@@ -262,6 +268,7 @@ void ToolbarView::Init() {
+                                     base::Unretained(this)));
+ 
+   // Accessibility specific tooltip text.
++  /*
+   if (content::BrowserAccessibilityState::GetInstance()->
+           IsAccessibleBrowser()) {
+     back_->SetTooltipText(
+@@ -269,6 +276,7 @@ void ToolbarView::Init() {
+     forward_->SetTooltipText(
+         l10n_util::GetStringUTF16(IDS_ACCNAME_TOOLTIP_FORWARD));
+   }
++  */
+ }
+ 
+ void ToolbarView::Update(WebContents* tab) {
+@@ -276,8 +284,10 @@ void ToolbarView::Update(WebContents* tab) {
+     location_bar_->Update(tab);
+   if (browser_actions_)
+     browser_actions_->RefreshToolbarActionViews();
++  /*
+   if (reload_)
+     reload_->set_menu_enabled(chrome::IsDebuggerAttachedToCurrentTab(browser_));
++  */
+ }
+ 
+ void ToolbarView::ResetTabState(WebContents* tab) {
+@@ -437,6 +447,7 @@ PageActionImageView* ToolbarView::CreatePageActionImageView(
+ void ToolbarView::EnabledStateChangedForCommand(int id, bool enabled) {
+   views::Button* button = NULL;
+   switch (id) {
++    /*
+     case IDC_BACK:
+       button = back_;
+       break;
+@@ -446,6 +457,7 @@ void ToolbarView::EnabledStateChangedForCommand(int id, bool enabled) {
+     case IDC_RELOAD:
+       button = reload_;
+       break;
++    */
+     case IDC_HOME:
+       button = home_;
+       break;
+@@ -518,8 +530,8 @@ void ToolbarView::Layout() {
+ 
+   // We assume all child elements except the location bar are the same height.
+   // Set child_y such that buttons appear vertically centered.
+-  const int child_height =
+-      std::min(back_->GetPreferredSize().height(), height());
++  const int child_height = height();
++      // std::min(back_->GetPreferredSize().height(), height());
+   const int child_y = (height() - child_height) / 2;
+ 
+   // If the window is maximized, we extend the back button to the left so that
+@@ -531,9 +543,10 @@ void ToolbarView::Layout() {
+   //                http://crbug.com/5540
+   const bool maximized =
+       browser_->window() && browser_->window()->IsMaximized();
+-  const int back_width = back_->GetPreferredSize().width();
++  const int back_width = 0; // back_->GetPreferredSize().width();
+   // The padding at either end of the toolbar.
+   const int end_padding = GetToolbarHorizontalPadding();
++  /*
+   if (maximized) {
+     back_->SetBounds(0, child_y, back_width + end_padding, child_height);
+     back_->SetLeadingMargin(end_padding);
+@@ -541,16 +554,17 @@ void ToolbarView::Layout() {
+     back_->SetBounds(end_padding, child_y, back_width, child_height);
+     back_->SetLeadingMargin(0);
+   }
++  */
+   const int element_padding = GetLayoutConstant(TOOLBAR_ELEMENT_PADDING);
+-  int next_element_x = back_->bounds().right() + element_padding;
++  int next_element_x = 0;/*back_->bounds().right() + element_padding;*/
+ 
+-  forward_->SetBounds(next_element_x, child_y,
++  /*forward_->SetBounds(next_element_x, child_y,
+                       forward_->GetPreferredSize().width(), child_height);
+-  next_element_x = forward_->bounds().right() + element_padding;
++  next_element_x = forward_->bounds().right() + element_padding;*/
+ 
+-  reload_->SetBounds(next_element_x, child_y,
++  /*reload_->SetBounds(next_element_x, child_y,
+                      reload_->GetPreferredSize().width(), child_height);
+-  next_element_x = reload_->bounds().right();
++  next_element_x = reload_->bounds().right();*/
+ 
+   if (show_home_button_.GetValue() ||
+       (browser_->is_app() && extensions::util::IsNewBookmarkAppsEnabled())) {
+@@ -706,9 +720,9 @@ gfx::Size ToolbarView::GetSizeInternal(
+     const int browser_actions_width =
+         (browser_actions_->*get_size)().width();
+     const int content_width =
+-        2 * GetToolbarHorizontalPadding() + (back_->*get_size)().width() +
++        2 * GetToolbarHorizontalPadding() + /*(back_->*get_size)().width() +
+         element_padding + (forward_->*get_size)().width() + element_padding +
+-        (reload_->*get_size)().width() +
++        (reload_->*get_size)().width()*/ +
+         (show_home_button_.GetValue()
+              ? element_padding + (home_->*get_size)().width()
+              : 0) +
+@@ -726,8 +740,9 @@ gfx::Size ToolbarView::SizeForContentSize(gfx::Size size) const {
+   if (is_display_mode_normal()) {
+     // The size of the toolbar is computed using the size of the location bar
+     // and constant padding values.
+-    int content_height = std::max(back_->GetPreferredSize().height(),
+-                                  location_bar_->GetPreferredSize().height());
++    int content_height = location_bar_->GetPreferredSize().height():
++                          /*std::max(back_->GetPreferredSize().height(),
++                                  location_bar_->GetPreferredSize().height());*/
+     const int kExtraVerticalSpace = 9;
+     size.SetToMax(gfx::Size(0, content_height + kExtraVerticalSpace));
+   }
+@@ -742,6 +757,7 @@ void ToolbarView::LoadImages() {
+   const SkColor disabled_color =
+       tp->GetColor(ThemeProperties::COLOR_TOOLBAR_BUTTON_ICON_INACTIVE);
+ 
++  /*
+   back_->SetImage(
+       views::Button::STATE_NORMAL,
+       gfx::CreateVectorIcon(kNavigateBackIcon, normal_color));
+@@ -754,16 +770,17 @@ void ToolbarView::LoadImages() {
+   forward_->SetImage(
+       views::Button::STATE_DISABLED,
+       gfx::CreateVectorIcon(kNavigateForwardIcon, disabled_color));
++  */
+   home_->SetImage(views::Button::STATE_NORMAL,
+                   gfx::CreateVectorIcon(kNavigateHomeIcon, normal_color));
+   app_menu_button_->UpdateIcon();
+ 
+-  back_->set_ink_drop_base_color(normal_color);
+-  forward_->set_ink_drop_base_color(normal_color);
++  // back_->set_ink_drop_base_color(normal_color);
++  // forward_->set_ink_drop_base_color(normal_color);
+   home_->set_ink_drop_base_color(normal_color);
+   app_menu_button_->set_ink_drop_base_color(normal_color);
+ 
+-  reload_->LoadImages();
++  // reload_->LoadImages();
+ }
+ 
+ void ToolbarView::ShowCriticalNotification() {
+diff --git a/chrome/browser/ui/views/toolbar/toolbar_view.h b/chrome/browser/ui/views/toolbar/toolbar_view.h
+index 1139ee9..5825431 100644
+--- a/chrome/browser/ui/views/toolbar/toolbar_view.h
++++ b/chrome/browser/ui/views/toolbar/toolbar_view.h
+@@ -23,12 +23,12 @@
+ #include "ui/views/view.h"
+ 
+ class AppMenuButton;
+-class BackButton;
++//class BackButton;
+ class Browser;
+ class BrowserActionsContainer;
+ class HomeButton;
+-class ReloadButton;
+-class ToolbarButton;
++// class ReloadButton;
++// class ToolbarButton;
+ 
+ namespace autofill {
+ class SaveCardBubbleController;
+@@ -100,7 +100,7 @@ class ToolbarView : public views::AccessiblePaneView,
+   // Accessors.
+   Browser* browser() const { return browser_; }
+   BrowserActionsContainer* browser_actions() const { return browser_actions_; }
+-  ReloadButton* reload_button() const { return reload_; }
++  // ReloadButton* reload_button() const { return reload_; }
+   LocationBarView* location_bar() const { return location_bar_; }
+   AppMenuButton* app_menu_button() const { return app_menu_button_; }
+   HomeButton* home_button() const { return home_; }
+@@ -196,9 +196,9 @@ class ToolbarView : public views::AccessiblePaneView,
+ 
+   // Controls. Most of these can be null, e.g. in popup windows. Only
+   // |location_bar_| is guaranteed to exist.
+-  BackButton* back_;
+-  ToolbarButton* forward_;
+-  ReloadButton* reload_;
++  // BackButton* back_;
++  // ToolbarButton* forward_;
++  // ReloadButton* reload_;
+   HomeButton* home_;
+   LocationBarView* location_bar_;
+   BrowserActionsContainer* browser_actions_;
