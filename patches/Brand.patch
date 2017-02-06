@@ -24,6 +24,58 @@ index bbe57ab..656125a 100644
        </message>
        <if expr="chromeos">
          <message name="IDS_ABOUT_VERSION_LICENSE_EULA" desc="The label below the copyright message, containing the URLs.">
+@@ -1247,6 +1247,9 @@ Please check your email at <ph name="ACCOUNT_EMAIL">$2<ex>jane.doe@example.com</
+           Select <ph name="SMALL_PRODUCT_LOGO">&lt;div class="logo-small"&gt;&lt;/div&gt;</ph> <ph name="BEGIN_BOLD">&lt;strong&gt;</ph>Chromium<ph name="END_BOLD">&lt;/strong&gt;</ph>
+         </message>
+       </if>
++      <message name="IDS_ABOUT_JOHNNY_WORKS_PAGE" desc="Johnny Works project link">
++        <ph name="JOHNNY_WORKS_PROJECT_LINK">&lt;a target="_blank" href="$1"&gt;</ph>Johnny Works<ph name="END_JOHNNY_WORKS_PROJECT_LINK">&lt;/a&gt;</ph> are witchcrafts made by Giovanni Grieco
++      </message>
+     </messages>
+   </release>
+ </grit>
+diff --git a/chrome/browser/resources/help/help_content.html b/chrome/browser/resources/help/help_content.html
+index 1c82f60..6dbbdc0 100644
+--- a/chrome/browser/resources/help/help_content.html
++++ b/chrome/browser/resources/help/help_content.html
+@@ -8,12 +8,12 @@
+       <span>$i18n{aboutProductDescription}</span>
+     </div>
+   </div>
+-  <div id="help-container">
++  <!-- div id="help-container">
+     <button id="get-help">$i18n{getHelpWithChrome}</button>
+ <if expr="_google_chrome">
+     <button id="report-issue">$i18n{reportAnIssue}</button>
+ </if>
+-  </div>
++  </div -->
+   <div id="version-container">
+     <div>
+       <span dir="ltr">$i18n{browserVersion}</span>
+@@ -117,6 +117,7 @@
+   </div>
+   <div id="product-container">
+     <div>$i18n{productName}</div>
++    <div>$i18nRaw{projectPageJohnnyWorks}</div>
+     <div>$i18n{productCopyright}</div>
+     <div id="product-license"></div>
+ <if expr="chromeos">
+diff --git a/chrome/browser/ui/webui/help/help_handler.cc b/chrome/browser/ui/webui/help/help_handler.cc
+index 9a7197a..060105a 100644
+--- a/chrome/browser/ui/webui/help/help_handler.cc
++++ b/chrome/browser/ui/webui/help/help_handler.cc
+@@ -337,6 +337,10 @@ void HelpHandler::GetLocalizedValues(base::DictionaryValue* localized_strings) {
+           l10n_util::GetStringUTF16(IDS_ABOUT_VERSION_COPYRIGHT),
+           base::Time::Now()));
+
++  base::string16 jwpp = l10n_util::GetStringFUTF16(
++      IDS_ABOUT_JOHNNY_WORKS_PAGE, base::ASCIIToUTF16(chrome::kJohnnyWorksProjectPage));
++  localized_strings->SetString("projectPageJohnnyWorks", jwpp);
++
+   base::string16 license = l10n_util::GetStringFUTF16(
+       IDS_VERSION_UI_LICENSE, base::ASCIIToUTF16(chrome::kChromiumProjectURL),
+       base::ASCIIToUTF16(chrome::kChromeUICreditsURL));
 diff --git a/chrome/app/generated_resources.grd b/chrome/app/generated_resources.grd
 index aed2ab4..b3e98e3 100644
 --- a/chrome/app/generated_resources.grd
@@ -37,3 +89,30 @@ index aed2ab4..b3e98e3 100644
            </message>
          </if>
          <message name="IDS_ABOUT_PRODUCT_VERSION" desc="The text label describing the version of the browser">
+diff --git a/chrome/common/url_constants.cc b/chrome/common/url_constants.cc
+index 829a236..a896229 100644
+--- a/chrome/common/url_constants.cc
++++ b/chrome/common/url_constants.cc
+@@ -25,6 +25,9 @@ const char kCrosScheme[] = "cros";
+ const char kAndroidAppScheme[] = "android-app";
+ #endif
+
++// Johnny Works Links
++const char kJohnnyWorksProjectPage[] = "https://github.com/corsaroquad/chromium-johnny-works/";
++
+ // Add Chrome UI URLs as necessary, in alphabetical order.
+ // Be sure to add the corresponding kChromeUI*Host constant below.
+ // This is a WebUI page that lists other WebUI pages.
+diff --git a/chrome/common/url_constants.h b/chrome/common/url_constants.h
+index d5d5403..1e51b6a 100644
+--- a/chrome/common/url_constants.h
++++ b/chrome/common/url_constants.h
+@@ -20,6 +20,8 @@
+
+ namespace chrome {
+
++extern const char kJohnnyWorksProjectPage[];
++
+ // chrome: URLs (including schemes). Should be kept in sync with the
+ // components below.
+ extern const char kChromeUIAboutURL[];

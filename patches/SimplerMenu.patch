@@ -1,0 +1,82 @@
+diff --git a/chrome/app/generated_resources.grd b/chrome/app/generated_resources.grd
+index aed2ab4..4d41196 100644
+--- a/chrome/app/generated_resources.grd
++++ b/chrome/app/generated_resources.grd
+@@ -1086,7 +1086,7 @@ Subsequent notifications, windows and dialogs may be split between desktops.
+             Distill page
+           </message>
+           <message name="IDS_MORE_TOOLS_MENU" desc="The text label of the Tools submenu for touch">
+-            More too&amp;ls
++            Too&amp;ls
+           </message>
+           <message name="IDS_ZOOM_MENU" desc="The text label of the Zoom submenu">
+             &amp;Zoom
+@@ -1154,7 +1154,7 @@ Subsequent notifications, windows and dialogs may be split between desktops.
+             Distill Page
+           </message>
+           <message name="IDS_MORE_TOOLS_MENU" desc="In Title Case: The text label of the Tools submenu for touch">
+-            More Too&amp;ls
++            Too&amp;ls
+           </message>
+           <message name="IDS_ZOOM_MENU" desc="In Title Case: The text label of the Zoom submenu">
+             &amp;Zoom
+diff --git a/chrome/browser/ui/toolbar/app_menu_model.cc b/chrome/browser/ui/toolbar/app_menu_model.cc
+index 7a02466..07d6167 100644
+--- a/chrome/browser/ui/toolbar/app_menu_model.cc
++++ b/chrome/browser/ui/toolbar/app_menu_model.cc
+@@ -181,6 +181,7 @@ void ToolsMenuModel::Build(Browser* browser) {
+ #if defined(OS_CHROMEOS) || defined(OS_MACOSX) || defined(USE_ASH)
+   show_create_shortcuts = false;
+ #endif
++  /*
+   if (base::CommandLine::ForCurrentProcess()->HasSwitch(
+           switches::kEnableSaveAsMenuLabelExperiment) ||
+       base::FieldTrialList::FindFullName("SaveAsMenuText") == "download") {
+@@ -188,6 +189,7 @@ void ToolsMenuModel::Build(Browser* browser) {
+   } else {
+     AddItemWithStringId(IDC_SAVE_PAGE, IDS_SAVE_PAGE);
+   }
++  */
+
+   if (extensions::util::IsNewBookmarkAppsEnabled()) {
+     int string_id = IDS_ADD_TO_DESKTOP;
+@@ -712,11 +714,13 @@ void AppMenuModel::Build() {
+       IsCommandIdVisible(IDC_UPGRADE_DIALOG))
+     AddSeparator(ui::NORMAL_SEPARATOR);
+
++  /*
+   AddItemWithStringId(IDC_NEW_TAB, IDS_NEW_TAB);
+   AddItemWithStringId(IDC_NEW_WINDOW, IDS_NEW_WINDOW);
+   if (ShouldShowNewIncognitoWindowMenuItem())
+     AddItemWithStringId(IDC_NEW_INCOGNITO_WINDOW, IDS_NEW_INCOGNITO_WINDOW);
+   AddSeparator(ui::NORMAL_SEPARATOR);
++  */
+
+   if (!browser_->profile()->IsOffTheRecord()) {
+     recent_tabs_sub_menu_model_.reset(new RecentTabsSubMenuModel(provider_,
+@@ -732,12 +736,16 @@ void AppMenuModel::Build() {
+                            bookmark_sub_menu_model_.get());
+   }
+
++  /*
+   CreateZoomMenu();
+   AddItemWithStringId(IDC_PRINT, IDS_PRINT);
+   if (media_router::MediaRouterEnabled(browser()->profile()))
+     AddItemWithStringId(IDC_ROUTE_MEDIA, IDS_MEDIA_ROUTER_MENU_ITEM_TITLE);
+
+   AddItemWithStringId(IDC_FIND, IDS_FIND);
++  */
++  AddSeparator(ui::NORMAL_SEPARATOR);
++
+   if (base::CommandLine::ForCurrentProcess()->HasSwitch(
+           switches::kEnableDomDistiller))
+     AddItemWithStringId(IDC_DISTILL_PAGE, IDS_DISTILL_PAGE);
+@@ -746,7 +754,7 @@ void AppMenuModel::Build() {
+       IDC_MORE_TOOLS_MENU, IDS_MORE_TOOLS_MENU, tools_menu_model_.get());
+   // Append the full menu including separators. The final separator only gets
+   // appended when this is a touch menu - otherwise it would get added twice.
+-  CreateCutCopyPasteMenu();
++  // CreateCutCopyPasteMenu();
+
+   AddItemWithStringId(IDC_OPTIONS, IDS_SETTINGS);
+ // The help submenu is only displayed on official Chrome builds. As the
