@@ -116,3 +116,19 @@ index d5d5403..1e51b6a 100644
  // chrome: URLs (including schemes). Should be kept in sync with the
  // components below.
  extern const char kChromeUIAboutURL[];
+diff --git a/chrome/browser/resources/help/help_page.js b/chrome/browser/resources/help/help_page.js
+index 018b252..e4491ea 100644
+--- a/chrome/browser/resources/help/help_page.js
++++ b/chrome/browser/resources/help/help_page.js
+@@ -91,9 +91,11 @@ cr.define('help', function() {
+       if (productTOS)
+         productTOS.innerHTML = loadTimeData.getString('productTOS');
+
++      /*
+       $('get-help').onclick = function() {
+         chrome.send('openHelpPage');
+       };
++      */
+ // <if expr="_google_chrome">
+       $('report-issue').onclick = function() {
+         chrome.send('openFeedbackDialog');
