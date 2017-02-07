@@ -1,0 +1,77 @@
+#!/bin/bash
+# Automatic builder that does these things:
+# 1. Upgrades depot_tools to latest master commit
+# 2. Cleans Chromium repository
+# 3. Upgrades Chromium to latest master commit
+# 4. Applies patches from patches/
+# 5. Releases the ninja to do the dirty work
+# 6. ???
+# 7. Gives the profit to you
+
+SCRIPT_ARGS=$1
+ROOT=$(git rev-parse --show-toplevel)
+export PATH=$PATH:$ROOT/utilities/
+
+build_setup()
+{
+	cd $ROOT/src
+	gn gen out/Johnny --args="is_debug=false symbol_level=0 remove_webcore_debug_symbols=true is_component_build=false"
+}
+
+fetch_error_handler()
+{
+	echo "Chromium fetching stopped. Trying to sync..."
+	cd $ROOT/src
+	gclient sync || echo "There was a problem during fetching. Please delete src/ and try again."
+}
+
+patch_and_build()
+{
+	echo "Witchcrafting..."
+	cd $ROOT/src
+	PATCHES=$ROOT/patches/*.patch
+	for patch in $PATCHES; do
+		git apply < $patch || echo "Patch not applied. Skipping..."
+	done
+
+	echo "Releasing the ninja..."
+	caffeinate -i ninja -C out/Johnny chrome || exit
+}
+
+update_all()
+{
+	echo "Updating depot_tools..."
+	cd $ROOT/utilities/depot_tools/
+	git pull
+
+	echo "Syncing Chromium..."
+	cd $ROOT/src/
+	git clean -df
+	git checkout -- .
+	gclient sync
+}
+
+main()
+{
+if [ ! -d "$ROOT/src" ]; then
+	echo "Chromium not found in src/ - I'll fetch it and exit"
+	fetch chromium || fetch_error_handler
+	exit
+fi
+
+if [ "$SCRIPT_ARGS" = "setup" ]; then
+	echo "Setting up build environment..."
+	build_setup
+fi
+
+if [ "$SCRIPT_ARGS" != "skipupdate" ]; then
+	update_all
+fi
+
+patch_and_build
+
+cp $ROOT/src/out/Johnny/Chromium\ Johnny\ Works.app $ROOT/
+}
+
+main
+exit
